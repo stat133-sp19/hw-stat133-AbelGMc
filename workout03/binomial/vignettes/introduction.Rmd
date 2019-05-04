@@ -1,0 +1,89 @@
+# ---
+title: "Binomial package"
+author: "Jiahao Cao"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Binomial package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+library(binomial)
+library(ggplot2)
+```
+
+## binomial
+
+The package `"binomial"` is a minimal implements functions for
+calculating probabilities of a Binomial random variable, and related calculations such as the
+probability distribution
+
+
+## Combination number
+
+The first thing we can do is to calculate the $C_n^k$
+
+```{r}
+bin_choose(n = 5, k = 2)
+bin_choose(5, 0)
+bin_choose(5, 1:3)
+```
+
+
+## Binomial distribution
+
+The we can get the distribution of a binomial random variable.
+
+First is function `bin_probability`: calculate the probability:
+```{r}
+bin_probability(success = 2, trials = 5, prob = 0.5)
+```
+
+Then `bin_distribution` can show all the distribution information:
+```{r}
+bin_distribution(trials = 5, prob = 0.5)
+```
+
+Further , `bin_cumulative` add cumulative distribution to above:
+```{r}
+bin_cumulative(trials = 5, prob = 0.5)
+```
+
+Also, `bin_variable` returns an object of class "binvar".
+And you can use `print`,`summary` on it.
+```{r}
+bin1 <- bin_variable(trials = 10, p = 0.3)
+bin1
+binsum1 <- summary(bin1)
+binsum1
+```
+
+Last, there are some functions to do measurements.
+```{r}
+bin_mean(10, 0.3)
+bin_variance(10, 0.3)
+bin_mode(10, 0.3)
+bin_skewness(10, 0.3)
+bin_kurtosis(10, 0.3)
+```
+## Print and plot
+
+You can use the function `plot()` to graphs a barplot to display
+the probability histogram of a binomial distribution object "bindis".
+
+
+```{r, fig.show='hold'}
+dis1 <- bin_distribution(trials = 5, prob = 0.5)
+plot(dis1)
+```
+
+also, use `plot.bincum()` to graph the cumulative distribution in ab object "bincum".
+```{r}
+dis2 <- bin_cumulative(trials = 5, prob = 0.5)
+plot(dis2)
+```
+
+
